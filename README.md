@@ -39,7 +39,7 @@ for tickets in generators.iterate_by_query('type:ticket status:closed'):
 ``libzen.search.get_by_query(query: str) -> list[dict]``
 Retorna todos resultados de uma pesquisa paginada.
 ```python
-from libzenimport generators
+from libzen import search
 tickets = search.get_by_query('type:ticket status:closed'):
 print(tickets[0])
 ```
