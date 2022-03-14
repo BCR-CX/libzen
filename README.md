@@ -1,6 +1,5 @@
-# libzen
+
   
-Funções comuns para utilização da API da zendesk em importações
 
 ## Instalação
 
@@ -20,6 +19,27 @@ Em caso de desenvolvimento local, instale com o comando:
 * _ZENDESK_NAME_:  E-mail para login.  
 * _ZENDESK_SECRET_: Senha para login.
 
-Para criar variáveis de ambiente temporárias você pode usar os seguintes comandos:  
-No windows: ``set ZENDESK_URL=valor``  
-No linux: ``export ZENDESK_URL=valor``
+Para criar variáveis de ambiente temporárias você pode usar os seguintes comandos:
+No windows: ``set ZENDESK_URL=valor``
+No *nix: ``export ZENDESK_URL=valor``
+
+## Doc
+
+### Search
+
+``libzen.search.generators.iterate_by_query(query: str)``
+
+Itera sobre todos resultados de uma pesquisa paginada.
+```python
+from libzen.search import generators
+for tickets in generators.iterate_by_query('type:ticket status:closed'):
+	print(tickets[0])
+```
+
+``libzen.search.get_by_query(query: str) -> list[dict]``
+Retorna todos resultados de uma pesquisa paginada.
+```python
+from libzenimport generators
+tickets = search.get_by_query('type:ticket status:closed'):
+print(tickets[0])
+```
