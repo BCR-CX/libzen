@@ -21,5 +21,5 @@ Em caso de desenvolvimento local, instale com o comando:
 * _ZENDESK_SECRET_: Senha para login.
 
 Para criar variáveis de ambiente temporárias você pode usar os seguintes comandos:
-No windows: ``set ZENDESK_URL=valor``
+No windows: ``set ZENDESK_URL=valor``  
 No linux: ``export ZENDESK_URL=valor``
