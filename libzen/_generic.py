@@ -1,6 +1,11 @@
 import libzen
 import requests
 
+class _ZendeskException(Exception):
+    def __init__(self, msg:str, status_code:int):
+        super().__init__(msg)
+        self.status_code = status_code
+
 
 def _iterate_search(endpoint: str, result_page_name: str='results'):
     """Gerador que obtém os resultados de 'endpoint' paginado de 100 em 100 e devolve o conteúdo de 'results' de cada iteração.
@@ -17,7 +22,7 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
         elif response.status_code > 299:
             err = response.json()
             err = err.get('description', err.get('error', 'status code' + str(response.status_code)))
-            raise RuntimeError(err)
+            raise _ZendeskException(err, response.status_code)
         
         res_json  = response.json()
         yield res_json[result_page_name]

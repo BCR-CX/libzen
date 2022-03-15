@@ -25,6 +25,16 @@ No *nix: ``export ZENDESK_URL=valor``
 
 ## Doc
 
+### Tickets
+
+``libzen.ticketsget_by_id(ticket_id:Union[str, int]) -> Optional[dict]``
+
+Itera sobre todos resultados de uma pesquisa paginada.
+```python
+from libzen import tickets
+print(tickets.get_by_id(33435))
+```
+
 ### Search
 
 ``libzen.search.generators.iterate_by_query(query: str)``
