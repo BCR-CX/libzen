@@ -49,7 +49,7 @@ print(tickets.get_by_id(33435))
 Itera sobre todos resultados de uma pesquisa paginada.
 ```python
 from libzen.search import generators
-for tickets in generators.iterate_by_query('type:ticket status:closed'):
+for tickets in generators.iterate_by_query('query=typetype:ticket status:closed'):
 	print(tickets[0])
 ```
 
@@ -57,6 +57,6 @@ for tickets in generators.iterate_by_query('type:ticket status:closed'):
 Retorna todos resultados de uma pesquisa paginada.
 ```python
 from libzen import search
-tickets = search.get_by_query('type:ticket status:closed'):
+tickets = search.get_by_query('query=typetype:ticket status:closed'):
 print(tickets[0])
 ```
