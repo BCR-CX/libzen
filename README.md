@@ -27,9 +27,16 @@ No *nix: ``export ZENDESK_URL=valor``
 
 ### Tickets
 
-``libzen.ticketsget_by_id(ticket_id:Union[str, int]) -> Optional[dict]``
+``libzen.tickets.get_by_id(ticket_id:Union[str, int]) -> Optional[dict]``
 
-Itera sobre todos resultados de uma pesquisa paginada.
+Retorna o ticket de um dado id ou None caso ele não exista.
+```python
+from libzen import tickets
+print(tickets.get_by_id(33435))
+```
+
+``libzen.tickets.delete_many(ids:list[Union[str, int]]) -> str:`
+Apaga todos os tickets dos quais os ids foram passados como lista e retorna uma string com a url do job result para verificar o status da ação.
 ```python
 from libzen import tickets
 print(tickets.get_by_id(33435))
