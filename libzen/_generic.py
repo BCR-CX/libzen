@@ -7,6 +7,21 @@ class _ZendeskException(Exception):
         self.status_code = status_code
 
 
+def _post(endpoint:str, content_object:dict, result_page_name:str):
+    full_url = libzen._ZENDESK_URL + endpoint
+
+    headers = {'content-type': 'application/json'}
+    response = requests.post(full_url, data=content_object, auth=(libzen._ZENDESK_NAME, libzen._ZENDESK_SECRET), headers=headers)
+
+    if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
+    elif response.status_code !=201:
+        err = response.json()
+        err = err.get('description', err.get('error', 'status code' + str(response.status_code)))
+        raise _ZendeskException(err, response.status_code)
+    
+    yield response.json()[result_page_name]
+
+
 def _delete(endpoint: str, result_page_name: str='results'):
     full_url = libzen._ZENDESK_URL + endpoint
 

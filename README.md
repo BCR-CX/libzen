@@ -27,6 +27,19 @@ No *nix: ``export ZENDESK_URL=valor``
 
 ### Tickets
 
+``libzen.tickets.create(**ticket_fields) -> int``
+
+Cria um ticket com os valores passados nos parâmetros nomeados (kwargs) como campos. Ele retorna o id do ticket criado.  
+NOTE: somente a descrição é obrigatória, porém cada zendesk pode adicionar campos para serem obrigatórios.  
+```python
+from libzen import tickets
+
+ticket_id = tickets.create(description='this is a description', subject='suporte')
+
+ticket = { 'description': 'foo', 'requester_id': 0}
+ticket_id = tickets.create(**ticket)
+```
+
 ``libzen.tickets.get_by_id(ticket_id:Union[str, int]) -> Optional[dict]``
 
 Retorna o ticket de um dado id ou None caso ele não exista.
