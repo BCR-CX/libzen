@@ -48,9 +48,22 @@ from libzen import tickets
 print(tickets.get_by_id(33435))
 ```
 
+**libzen.tickets.update_many(tickets:'list[dict]') -> str:**  
+
+Apaga todos os tickets dos quais os ids foram passados como lista e retorna uma string com a url do job result para verificar o status da ação.  
+Retorna uma string com a url da tarefa (job result)
+```python
+from libzen import tickets
+print(tickets.update_many([
+	{ 'id': 1, 'subject': 'foo'},
+	{ 'id': 2, 'description': 'baz'}
+]))
+```
+
 **libzen.tickets.delete_many(ids:list[Union[str, int]]) -> str:**  
 
-Apaga todos os tickets dos quais os ids foram passados como lista e retorna uma string com a url do job result para verificar o status da ação.
+Apaga todos os tickets dos quais os ids foram passados como lista e retorna uma string com a url do job result para verificar o status da ação.  
+Retorna uma string com a url da tarefa (job result)
 ```python
 from libzen import tickets
 print(tickets.get_by_id(33435))

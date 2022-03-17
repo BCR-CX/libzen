@@ -1,4 +1,4 @@
-from libzen._generic import _iterate_search, _delete, _post, _ZendeskException
+from libzen._generic import _iterate_search, _delete, _send, _ZendeskException
 from typing import Union, Optional
 import json
 
@@ -13,8 +13,20 @@ def create(**ticket_fields) -> int:
     if invalid_keys:
         raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
 
-    data_ = json.dumps({ 'ticket': ticket_fields })
-    return next(_post('/api/v2/tickets.json', data_, result_page_name='ticket'))['id']
+    data = json.dumps({ 'ticket': ticket_fields })
+    return next(_send('/api/v2/tickets.json', data, result_page_name='ticket', method='post'))['id']
+
+
+def update_many(tickets:'list[dict]') -> str:
+    """Dado uma lista de tickets, atualiza seus valores.
+    NOTA: id é obrigatório"""
+    
+    if len(tickets) > 100:
+        raise ValueError(f"Passados {len(ids)}, esperado 100.")
+    
+    data = json.dumps({ 'tickets': tickets})
+    endpoint = '/api/v2/tickets/update_many'
+    return next(_send(endpoint, data, result_page_name='job_status', method='put'))['url']
 
 
 def get_by_id(ticket_id:'Union[str, int]') -> 'Optional[dict]':
