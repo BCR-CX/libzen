@@ -37,7 +37,8 @@ def _delete(endpoint: str, result_page_name: str='results'):
         err = err.get('description', err.get('error', 'status code ' + str(response.status_code)))
         raise _ZendeskException(err, response.status_code)
     
-    yield response.json()[result_page_name]
+    if 'application/json' in response.headers['content-type']:
+        yield response.json().get(result_page_name)
 
 
 def _iterate_search(endpoint: str, result_page_name: str='results'):

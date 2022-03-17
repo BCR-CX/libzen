@@ -59,6 +59,11 @@ def get_by_id(ticket_id:'Union[str, int]') -> 'Optional[dict]':
         raise e
 
 
+def delete(ticket_id:'[Union[str, int]') -> str:
+    endpoint = '/api/v2/tickets/' + str(ticket_id)
+    _delete(endpoint, result_page_name='')
+
+
 def delete_many(ids:'list[Union[str, int]]') -> str:
     if len(ids) > 100:
         raise ValueError(f"Passados {len(ids)}, esperado 100.")

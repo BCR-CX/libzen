@@ -40,8 +40,7 @@ ticket = { 'description': 'foo', 'requester_id': 0}
 ticket_id = tickets.create(**ticket)
 ```
 
-
-**libzen.tickets.create_many(tickets:'list[dict]') -> str:**  
+**libzen.tickets.create_many(tickets:'list[dict]') -> str**  
 
 Cria todos os tickets passados.  
 Retorna uma string com a url da tarefa (job result)
@@ -74,7 +73,7 @@ ticket = { 'description': 'foo'}
 ticket_id = tickets.update(**ticket)
 ```
 
-**libzen.tickets.update_many(tickets:'list[dict]') -> str:**  
+**libzen.tickets.update_many(tickets:'list[dict]') -> str**  
 
 Atualiza todos os tickets que foram passados.  
 Retorna uma string com a url da tarefa (job result)
@@ -86,7 +85,15 @@ print(tickets.update_many([
 ]))
 ```
 
-**libzen.tickets.delete_many(ids:list[Union[str, int]]) -> str:**  
+**libzen.tickets.delete(ids:Union[str, int])**  
+
+Apaga o ticket com o id.    
+```python
+from libzen import tickets
+tickets.delete(33435)
+```
+
+**libzen.tickets.delete_many(ids:list[Union[str, int]]) -> str**  
 
 Apaga todos os tickets dos quais os ids foram passados como lista.    
 Retorna uma string com a url da tarefa (job result)
