@@ -17,6 +17,16 @@ def create(**ticket_fields) -> int:
     return next(_send('/api/v2/tickets.json', data, result_page_name='ticket', method='post'))['id']
 
 
+
+def create_many(tickets:'list[dict]') -> str:
+    if len(tickets) > 100:
+        raise ValueError(f"Passados {len(ids)}, esperado 100.")
+    
+    data = json.dumps({ 'tickets': tickets})
+    endpoint = '/api/v2/tickets/create_many'
+    return next(_send(endpoint, data, result_page_name='job_status', method='post'))['url']
+
+
 # TODO: mover essas checagens duplicadas para função aparte
 def update(ticket_id:'Union[str, int]', **ticket_fields) -> dict:
     invalid_keys = set(ticket_fields.keys()).difference(_TICKET_VALID_FIELDS)
