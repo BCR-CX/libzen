@@ -17,6 +17,16 @@ def create(**ticket_fields) -> int:
     return next(_send('/api/v2/tickets.json', data, result_page_name='ticket', method='post'))['id']
 
 
+# TODO: mover essas checagens duplicadas para função aparte
+def update(ticket_id:'Union[str, int]', **ticket_fields) -> dict:
+    invalid_keys = set(ticket_fields.keys()).difference(_TICKET_VALID_FIELDS)
+    if invalid_keys:
+        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
+
+    data = json.dumps({ 'ticket': ticket_fields })
+    return next(_send('/api/v2/tickets/' + str(ticket_id), data, result_page_name='ticket', method='put'))
+
+
 def update_many(tickets:'list[dict]') -> str:
     """Dado uma lista de tickets, atualiza seus valores.
     NOTA: id é obrigatório"""
