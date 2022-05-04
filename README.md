@@ -102,6 +102,17 @@ from libzen import tickets
 print(tickets.get_by_id(33435))
 ```
 
+### Ticket Fields
+
+**libzen.ticket_fields.get_all() -> list[dict]**  
+
+Retorna todos os campos de ticket.
+```python
+from libzen import ticket_fields
+fields = ticket_fields.get_all()
+print(fields[0])
+```
+
 ### Search
 
 **libzen.search.generators.iterate_by_query(query: str)**  
@@ -121,3 +132,4 @@ from libzen import search
 tickets = search.get_by_query('query=type:ticket status:closed'):
 print(tickets[0])
 ```
+
