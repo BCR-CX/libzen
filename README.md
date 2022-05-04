@@ -133,3 +133,13 @@ tickets = search.get_by_query('query=type:ticket status:closed'):
 print(tickets[0])
 ```
 
+### Macros
+
+**libzen.macros() -> list[dict]**  
+
+Retorna todas as macros incluindo as desativadas.
+```python
+from libzen import macros
+macros = macros.get_all()
+print(macros[0])
+```
