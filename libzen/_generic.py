@@ -9,7 +9,7 @@ class _ZendeskException(Exception):
 
 _METHOD = { 'post': requests.post, 'put': requests.put}
 
-def _send(endpoint:str, content_object:dict, result_page_name:str, method:str='post'):
+def _send(endpoint:str, content_object:str, result_page_name:str, method:str='post'):
     """Função generica para enviar uma requisição com dados 'content_object' por um 'metodo' put/post para um 'endpoint' e retorna o contéudo 'result_page_name' do item devolvido pela requisição."""
     full_url = libzen._ZENDESK_URL + endpoint
 
@@ -23,7 +23,6 @@ def _send(endpoint:str, content_object:dict, result_page_name:str, method:str='p
         raise _ZendeskException(err, response.status_code)
     
     yield response.json()[result_page_name]
-
 
 
 def _delete(endpoint: str, result_page_name: str='results'):
