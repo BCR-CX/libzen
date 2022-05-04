@@ -17,10 +17,9 @@ def create(**ticket_fields) -> int:
     return next(_send('/api/v2/tickets.json', data, result_page_name='ticket', method='post'))['id']
 
 
-
 def create_many(tickets:'list[dict]') -> str:
     if len(tickets) > 100:
-        raise ValueError(f"Passados {len(ids)}, esperado 100.")
+        raise ValueError(f"Passados {len(tickets)}, esperado 100 ou menos.")
     
     data = json.dumps({ 'tickets': tickets})
     endpoint = '/api/v2/tickets/create_many'
@@ -42,7 +41,7 @@ def update_many(tickets:'list[dict]') -> str:
     NOTA: id é obrigatório"""
     
     if len(tickets) > 100:
-        raise ValueError(f"Passados {len(ids)}, esperado 100.")
+        raise ValueError(f"Passados {len(tickets)}, esperado 100 ou menos.")
     
     data = json.dumps({ 'tickets': tickets})
     endpoint = '/api/v2/tickets/update_many'
