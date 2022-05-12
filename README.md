@@ -27,7 +27,7 @@ No *nix: ``export ZENDESK_URL=valor``
 
 ### Tickets
 
-**libzen.tickets.create(\*\*ticket_fields) -> int**  
+**libzen.tickets.create(\*\*ticket_props) -> int**  
 
 Cria um ticket com os valores passados nos parâmetros nomeados (kwargs) como campos. Ele retorna o id do ticket criado.  
 NOTE: somente a descrição é obrigatória, porém cada zendesk pode adicionar campos para serem obrigatórios.  
@@ -60,7 +60,7 @@ from libzen import tickets
 print(tickets.get_by_id(33435))
 ```
 
-**libzen.tickets.update(ticket_id:'Union[str, int]', **ticket_fields) -> dict**  
+**libzen.tickets.update(ticket_id:Union[str, int], **ticket_props) -> dict**  
 
 Semelhante a libzen.tickets.create, porém atualiza o ticket no lugar de criar.  
 Retorna o ticket completo e atualizado  
