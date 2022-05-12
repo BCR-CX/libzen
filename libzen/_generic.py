@@ -2,9 +2,13 @@ import libzen
 import requests
 
 class _ZendeskException(Exception):
-    def __init__(self, msg:str, status_code:int):
+    def __init__(self, msg:str, status_code:int, details:dict):
         super().__init__(msg)
         self.status_code = status_code
+        self.details = details
+    
+    def __str__(self):
+        return f"{super().__str__()} | {self.status_code} | {str(self.details)}"
 
 
 _METHOD = { 'post': requests.post, 'put': requests.put}
@@ -19,8 +23,8 @@ def _send(endpoint:str, content_object:str, result_page_name:str, method:str='po
     if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
     elif response.status_code > 299:
         err = response.json()
-        err = err.get('description', err.get('error', 'status code ' + str(response.status_code)))
-        raise _ZendeskException(err, response.status_code)
+        msg = err.get('description', '')
+        raise _ZendeskException(msg, response.status_code, err)
     
     yield response.json()[result_page_name]
 
@@ -33,8 +37,8 @@ def _delete(endpoint: str, result_page_name: str='results'):
     if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
     elif response.status_code > 299:
         err = response.json()
-        err = err.get('description', err.get('error', 'status code ' + str(response.status_code)))
-        raise _ZendeskException(err, response.status_code)
+        msg = err.get('description', '')
+        raise _ZendeskException(msg, response.status_code, err)
     
     if 'application/json' in response.headers['content-type']:
         yield response.json().get(result_page_name)
@@ -46,7 +50,7 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
     """
     full_url = libzen._ZENDESK_URL + endpoint
     nextpage = full_url
-
+    
     while True:
         response = requests.get(nextpage, auth=(libzen._ZENDESK_NAME, libzen._ZENDESK_SECRET))
 
@@ -54,10 +58,11 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
         elif response.status_code == 422: break
         elif response.status_code > 299:
             err = response.json()
-            err = err.get('description', err.get('error', 'status code ' + str(response.status_code)))
-            raise _ZendeskException(err, response.status_code)
+            msg = err.get('description', '')
+            raise _ZendeskException(msg, response.status_code, err)
         
         res_json  = response.json()
+
         yield res_json[result_page_name]
 
         nextpage = res_json['next_page']
