@@ -133,6 +133,34 @@ tickets = search.get_by_query('query=type:ticket status:closed'):
 print(tickets[0])
 ```
 
+### Organizations
+
+**libzen.organizations.create(\*\*organization_props) -> int**  
+
+Cria uma organização com os valores passados nos parâmetros nomeados (kwargs) como campos. Ele retorna o id da organização criado.  
+NOTE: somente o nome é obrigatório.    
+```python
+from libzen import tickets
+
+ticket_id = tickets.create(description='this is a description', subject='suporte')
+
+ticket = { 'description': 'foo', 'requester_id': 0}
+ticket_id = tickets.create(**ticket)
+```
+
+**libzen.organizations.update(organization_id:Union[str, int], **organization_props) -> dict**  
+
+Semelhante a libzen.organizations.create, porém atualiza a organização no lugar de criar.  
+Retorna a organização completa e atualizado  
+```python
+from libzen import organizations
+
+org_id = organizations.update(1,  name='org name')
+
+org = { 'description': 'foo'}
+org_id = organizations.update(**org)
+```
+
 ### Macros
 
 **libzen.macros() -> list[dict]**  
