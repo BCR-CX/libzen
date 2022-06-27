@@ -3,13 +3,13 @@
 
 ## Instalação
 
-Já que este pacote não está no PyPI é necessário dizer o caminho do repositório com o seguinte comando:
+Já que este pacote não está no PyPI é necessário clona-lo do repositório com o seguinte comando:
 
-``pip install git+https://gitlab.com/dev-pos-vendas-bcr/python-libzen.git``
+```python
+git clone https://gitlab.com/dev-pos-vendas-bcr/python-libzen.git
 
-Em caso de desenvolvimento local, instale com o comando:
-
-``pip3 install -e <caminho/local/para/o/repo>``
+pip3install -e ./python-libzen
+```
 
 ## Uso
 
