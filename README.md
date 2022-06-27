@@ -60,7 +60,7 @@ from libzen import tickets
 print(tickets.get_by_id(33435))
 ```
 
-**libzen.tickets.update(ticket_id: str | int, **ticket_props) -> dict**  
+**libzen.tickets.update(ticket_id: str | int, \*\*ticket_props) -> dict**  
 
 Semelhante a libzen.tickets.create, porém atualiza o ticket no lugar de criar.  
 Retorna o ticket completo e atualizado  
