@@ -7,8 +7,7 @@ Já que este pacote não está no PyPI é necessário clona-lo do repositório c
 
 ```python
 git clone https://gitlab.com/dev-pos-vendas-bcr/python-libzen.git
-
-pip3install -e ./python-libzen
+pip install -e ./python-libzen
 ```
 
 ## Uso
