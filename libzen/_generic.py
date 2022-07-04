@@ -2,6 +2,10 @@ from typing import Any
 import libzen
 import requests
 
+# TODO: Essa exceção está exposta ao usuário. Mover ela para um
+#       local 'publico' ou empacota-la em outra exceção quando
+#       as pontas da API jogarem ela para o usuário
+
 class _ZendeskException(Exception):
     def __init__(self, msg:str, status_code:int, details:dict):
         super().__init__(msg)
