@@ -1,3 +1,4 @@
+from typing import Any
 import libzen
 import requests
 
@@ -13,11 +14,13 @@ class _ZendeskException(Exception):
 
 _METHOD = { 'post': requests.post, 'put': requests.put}
 
-def _send(endpoint:str, content_object:str, result_page_name:str, method:str='post'):
+# TODO: fora, iterate_search, os outros metodos daqui não precisam ser geradores
+
+def _send(endpoint:str, content_object:Any, result_page_name:str, headers=None, method:str='post'):
     """Função generica para enviar uma requisição com dados 'content_object' por um 'metodo' put/post para um 'endpoint' e retorna o contéudo 'result_page_name' do item devolvido pela requisição."""
     full_url = libzen._ZENDESK_URL + endpoint
 
-    headers = {'content-type': 'application/json'}
+    headers = headers or {'content-type': 'application/json'}
     response = _METHOD[method](full_url, data=content_object, auth=(libzen._ZENDESK_NAME, libzen._ZENDESK_SECRET), headers=headers)
 
     if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')

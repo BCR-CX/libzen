@@ -132,6 +132,28 @@ tickets = search.get_by_query('query=type:ticket status:closed'):
 print(tickets[0])
 ```
 
+## Attachments
+
+**libzen.attachments.create(fp: TextIOWrapper | BufferedReader, filename: str| None=None) -> tuple[str, int]**  
+
+Cria um anexo e retorna uma tupla com o ``token`` e o id. O ``token`` é usado para anexa-lo em comentários de ticket.  
+``fp`` é o arquivo a ser anexado, ele deve ser aberto em modo bytes. ``filename`` é o nome do arquivo após ser postado na zendesk, se não passado, ele será nomeado com o nome de ``fp``.
+O arquivo passado como parâmetro deve ser aberto em modo de 'bytes'. Filename 
+```python
+from libzen import attachments, tickets
+with open("./some-cool-image.png", 'rb') as file:
+    token, id_ = attachments.create(file)
+	
+    tickets.update(1, comment={
+        'body': 'here is a cool picture :^)',
+        'uploads': [token]
+    })
+
+with open("./relatory.txt", 'rb') as file:
+    token, id_ = attachments.create(file)
+	tickets.update(1, comment={ 'body': 'You can see the relatory below.', 'uploads': [token] })	
+```
+
 ### Organizations
 
 **libzen.organizations.create(\*\*organization_props) -> int**  
