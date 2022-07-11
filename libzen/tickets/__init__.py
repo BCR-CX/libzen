@@ -63,7 +63,7 @@ def append_tags(ticket_id:'Union[str, int]', tags : 'list[str]') -> int:
     return next(_send(f'/api/v2/tickets/{ticket_id}/tags', data, headers=headers, result_page_name='tags', method='put'))
 
 
-def delete(ticket_id:'Union[str, int]') -> str:
+def delete(ticket_id:'Union[str, int]'):
     endpoint = '/api/v2/tickets/' + str(ticket_id)
     _delete(endpoint, result_page_name='')
 
