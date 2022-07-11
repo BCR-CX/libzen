@@ -84,6 +84,14 @@ print(tickets.update_many([
 ]))
 ```
 
+**libzen.tickets.append_tags(ticket_id: str | int, tags : list[str]) -> dict[str,str]**  
+
+Adiciona tags ao ticket. Note que ele não sobrescreve as existentes. O retorno são todas as tags do ticket incluindo a que foi adicionada.    
+```python
+from libzen import tickets
+tickets.append_tags(33435, ['tag1', 'tag2'])
+```
+
 **libzen.tickets.delete(ids: str | int)**  
 
 Apaga o ticket com o id.    

@@ -57,6 +57,11 @@ def get_by_id(ticket_id:'Union[str, int]') -> 'Optional[dict]':
 
         raise e
 
+def append_tags(ticket_id:'Union[str, int]', tags : 'list[str]') -> int:
+    data = json.dumps({ 'tags': tags})
+    headers = {'content-type': 'application/json'}
+    return next(_send(f'/api/v2/tickets/{ticket_id}/tags', data, headers=headers, result_page_name='tags', method='put'))
+
 
 def delete(ticket_id:'Union[str, int]') -> str:
     endpoint = '/api/v2/tickets/' + str(ticket_id)
