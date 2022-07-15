@@ -109,6 +109,59 @@ from libzen import tickets
 print(tickets.get_by_id(33435))
 ```
 
+
+**libzen.tickets.import_one(\*\*ticket_props) -> int**  
+
+Semelhante a libzen.tickets.create, porém permite a adição de
+comentários na criação do ticket e permite definir  uma flag
+para arquivar imediatamente o ticket se o status dele é fechado.  
+Retorna o ticket completo e atualizado  
+
+Note que por esse endpoint o campo ``created_at`` não é de apenas
+leitura. Mais informações [sobre o endpoint](https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_import/#ticket-import).
+```python
+from libzen import tickets
+
+comments = [
+    {
+        "created_at": "2009-06-25T10:15:18Z",
+        "value": "I can upload"
+    },
+    {
+        "public": False,
+        "value": "multiple comments with it"
+    }
+]
+ticket = { 'comments': comments }
+ticket_id = tickets.import_one(**ticket, archive_immediately=True, status='closed')
+```
+
+**libzen.tickets.import_many(tickets: list[dict] ) -> str**  
+
+Semelhante a libzen.tickets.import_one, porém permite cria multiplos
+tickets. Retorna uma string com a url da tarefa (job result)
+```python
+from libzen import tickets
+
+ticket_id = tickets.import_one(subject='suporte')
+
+comments = [
+    {
+        "created_at": "2009-06-25T10:15:18Z",
+        "value": "I can upload"
+    },
+    {
+        "public": False,
+        "value": "multiple comments with it"
+    }
+]
+
+print(tickets.import_many([
+	{ 'subject': 'foo'},
+	{ 'comments': comments}
+]))
+```
+
 ### Ticket Fields
 
 **libzen.ticket_fields.get_all() -> list[dict]**  
