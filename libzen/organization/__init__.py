@@ -1,5 +1,5 @@
 from libzen._generic import _iterate_search
-from libzen._generic import _iterate_search, _send, _ZendeskException
+from libzen._generic import _iterate_search, _send, ZendeskException
 from typing import Union
 import json
 

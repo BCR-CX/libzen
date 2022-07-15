@@ -1,6 +1,7 @@
 from typing import Union, Optional
 import json
-from libzen._generic import _iterate_search, _delete, _send, _ZendeskException
+from libzen._generic import _iterate_search, _delete, _send
+from libzen import ZendeskException
 
 _TICKET_VALID_FIELDS = set(['allow_attachments', 'allow_channelback', 'assignee_email',
                             'assignee_id', 'attribute_value_ids', 'brand_id',
@@ -82,7 +83,7 @@ def update_many(tickets:'list[dict]') -> str:
 def get_by_id(ticket_id:'Union[str, int]') -> 'Optional[dict]':
     try:
         return next(_iterate_search(f"/api/v2/tickets/{ticket_id}", result_page_name='ticket'))
-    except _ZendeskException as ex:
+    except ZendeskException as ex:
         if ex.status_code == 404:
             return None
 

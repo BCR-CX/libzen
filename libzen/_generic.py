@@ -2,20 +2,6 @@ from typing import Any
 import libzen
 import requests
 
-# TODO: Essa exceção está exposta ao usuário. Mover ela para um
-#       local 'publico' ou empacota-la em outra exceção quando
-#       as pontas da API jogarem ela para o usuário
-
-class _ZendeskException(Exception):
-    def __init__(self, msg:str, status_code:int, details:dict):
-        super().__init__(msg)
-        self.status_code = status_code
-        self.details = details
-    
-    def __str__(self):
-        return f"{super().__str__()} | {self.status_code} | {str(self.details)}"
-
-
 _METHOD = { 'post': requests.post, 'put': requests.put}
 
 # TODO: fora, iterate_search, os outros metodos daqui não precisam ser geradores
@@ -31,7 +17,7 @@ def _send(endpoint:str, content_object:Any, result_page_name:str, headers=None, 
     elif response.status_code > 299:
         err = response.json()
         msg = err.get('description', '')
-        raise _ZendeskException(msg, response.status_code, err)
+        raise libzen.ZendeskException(msg, response.status_code, err)
     
     yield response.json()[result_page_name]
 
@@ -45,7 +31,7 @@ def _delete(endpoint: str, result_page_name: str='results'):
     elif response.status_code > 299:
         err = response.json()
         msg = err.get('description', '')
-        raise _ZendeskException(msg, response.status_code, err)
+        raise libzen.ZendeskException(msg, response.status_code, err)
     
     if 'application/json' in response.headers['content-type']:
         yield response.json().get(result_page_name)
@@ -66,12 +52,12 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
         elif response.status_code > 299:
             err = response.json()
             msg = err.get('description', '')
-            raise _ZendeskException(msg, response.status_code, err)
+            raise libzen.ZendeskException(msg, response.status_code, err)
         
         res_json  = response.json()
 
         yield res_json[result_page_name]
 
         nextpage = res_json['next_page']
-        if nextpage == None:
+        if nextpage is None:
             break
