@@ -75,6 +75,9 @@ def update_many(tickets:'list[dict]') -> str:
     if len(tickets) > 100:
         raise ValueError(f"Passados {len(tickets)}, esperado 100 ou menos.")
 
+    if len(ids) == 0:
+        raise ValueError(f"Nenhum id fornecido.")
+
     data = json.dumps({ 'tickets': tickets})
     endpoint = '/api/v2/tickets/update_many'
     return next(_send(endpoint, data, result_page_name='job_status', method='put'))['url']
@@ -103,6 +106,9 @@ def delete(ticket_id:'Union[str, int]'):
 def delete_many(ids:'list[Union[str, int]]') -> str:
     if len(ids) > 100:
         raise ValueError(f"Passados {len(ids)}, esperado 100.")
+
+    if len(ids) == 0:
+        raise ValueError(f"Nenhum id fornecido.")
 
     ids_str = ','.join([str(id_) for id_ in ids])
     endpoint = '/api/v2/tickets/destroy_many?ids=' + ids_str
