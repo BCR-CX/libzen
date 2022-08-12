@@ -1,4 +1,5 @@
 from typing import Any
+import json
 import libzen
 import requests
 
@@ -15,7 +16,7 @@ def _send(endpoint:str, content_object:Any, result_page_name:str, headers=None, 
 
     if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
     elif response.status_code > 299:
-        err = response.json()
+        err = json.loads(response.text.replace('\\', '\\\\'))
         msg = err.get('description', '')
         raise libzen.ZendeskException(msg, response.status_code, err)
     
@@ -29,7 +30,7 @@ def _delete(endpoint: str, result_page_name: str='results'):
 
     if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
     elif response.status_code > 299:
-        err = response.json()
+        err = json.loads(response.text.replace('\\', '\\\\'))
         msg = err.get('description', '')
         raise libzen.ZendeskException(msg, response.status_code, err)
     
@@ -50,7 +51,7 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
         if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
         elif response.status_code == 422: break
         elif response.status_code > 299:
-            err = response.json()
+            err = json.loads(response.text.replace('\\', '\\\\'))
             msg = err.get('description', '')
             raise libzen.ZendeskException(msg, response.status_code, err)
         
