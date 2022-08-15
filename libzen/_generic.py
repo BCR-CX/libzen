@@ -62,3 +62,30 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
         nextpage = res_json['next_page']
         if nextpage is None:
             break
+
+
+def _export_iterate_search(endpoint: str, result_page_name: str = 'results'):
+    full_url = libzen._ZENDESK_URL + endpoint
+    nextpage = full_url
+
+    while True:
+        response = requests.get(nextpage, auth=(
+            libzen._ZENDESK_NAME, libzen._ZENDESK_SECRET))
+
+        if response.status_code == 401:
+            raise libzen.AuthException(
+                'Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
+        elif response.status_code == 422: break
+        elif response.status_code > 299:
+            err = json.loads(response.text.replace('\\', '\\\\'))
+            msg = err.get('description', '')
+            raise libzen.ZendeskException(msg, response.status_code, err)
+
+        res_json = response.json()
+
+        yield res_json[result_page_name]
+
+        # Unicas linhas diferentes em relação a _iterate_search
+        nextpage = res_json['links']['next']
+        if not res_json['meta']['has_more']:
+            break

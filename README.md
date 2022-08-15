@@ -204,6 +204,17 @@ tickets = search.get_by_query('query=type:ticket status:closed'):
 print(tickets[0])
 ```
 
+
+**libzen.search.export.iterate_by_query(query: str)**  
+
+Itera sobre todos resultados de uma pesquisa no endpoint export. Para saber as
+diferenças entre esse endpoint e o normal, leia a [documentação](https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#export-search-results).
+```python
+from libzen.search import export
+for tickets in export.iterate_by_query('query=tags:teste&filter[type]=ticket'):
+	print(tickets[0])
+```
+
 ## Attachments
 
 **libzen.attachments.create(fp: TextIOWrapper | BufferedReader, filename: str| None=None) -> tuple[str, int]**  
