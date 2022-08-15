@@ -162,6 +162,17 @@ print(tickets.import_many([
 ]))
 ```
 
+### Ticket Comments
+
+**libzen.comments.get(ticket_id: str | int) -> list[dict]**  
+
+Retorna todos os comentário de um ticket.  
+```python
+from libzen import comments
+comments = comments.get()
+print(comments[0])
+```
+
 ### Ticket Fields
 
 **libzen.ticket_fields.get_all() -> list[dict]**  
