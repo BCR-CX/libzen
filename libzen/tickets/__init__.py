@@ -74,9 +74,8 @@ def update_many(tickets:'list[dict]') -> str:
 
     if len(tickets) > 100:
         raise ValueError(f"Passados {len(tickets)}, esperado 100 ou menos.")
-
-    if len(ids) == 0:
-        raise ValueError(f"Nenhum id fornecido.")
+    elif len(tickets) == 0:
+        raise ValueError("Nenhum id fornecido.")
 
     data = json.dumps({ 'tickets': tickets})
     endpoint = '/api/v2/tickets/update_many'
