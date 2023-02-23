@@ -10,6 +10,9 @@ git clone https://gitlab.com/dev-pos-vendas-bcr/python-libzen.git
 pip install ./python-libzen
 ```
 
+Use o argumento ``-e`` para que o pacote seja instalado em modo 'editável' para fins de desenvolvimento e debug. Isso pode
+apresentar problemas no python 3.11.
+
 ## Uso
 
 É necessário definir as seguintes variáveis de ambiente para o programa:
