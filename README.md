@@ -11,7 +11,7 @@ pip install ./python-libzen
 ```
 
 Use o argumento ``-e`` para que o pacote seja instalado em modo 'editável' para fins de desenvolvimento e debug. Isso pode
-apresentar problemas no python 3.11.
+apresentar problemas no python 3.11 com o setuptools em uma versão menor que 58.3.0.
 
 ## Uso
 
