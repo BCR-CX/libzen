@@ -6,7 +6,7 @@
 Já que este pacote não está no PyPI é necessário clona-lo do repositório com o seguinte comando:
 
 ```python
-git clone https://gitlab.com/dev-pos-vendas-bcr/python-libzen.git
+git clone https://path.to.repo/python-libzen.git
 pip install ./python-libzen
 ```
 
