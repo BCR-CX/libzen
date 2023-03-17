@@ -51,8 +51,11 @@ def _iterate_search(endpoint: str, result_page_name: str='results'):
         if response.status_code == 401: raise libzen.AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
         elif response.status_code == 422: break
         elif response.status_code > 299:
-            err = json.loads(response.text.replace('\\', '\\\\'))
-            msg = err.get('description', '')
+            msg = ''
+            err = {}
+            if response.headers.get('Content-Type') == 'application/json':
+                err = json.loads(response.text.replace('\\', '\\\\'))
+                msg = err.get('description', '')
             raise libzen.ZendeskException(msg, response.status_code, err)
         
         res_json  = response.json()

@@ -297,6 +297,19 @@ org = { 'description': 'foo'}
 org_id = organizations.update(**org)
 ```
 
+### Job Statuses
+
+**libzen.wait_for_job(url: string, sleep_time=5) -> dict**  
+
+Espera um job ser terminado e retorna o conteúdo. ``sleep_time`` é quanto vai esperar antes de tentar novamente.  
+
+```python
+from libzen import tickets, job_statuses
+print(job_statuses.wait_for_job(tickets.create_many([
+	{ 'subject': 'foo'},
+	{ 'description': 'baz'}
+])))
+```
 ### Macros
 
 **libzen.macros() -> list[dict]**  
