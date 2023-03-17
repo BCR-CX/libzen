@@ -187,6 +187,35 @@ fields = ticket_fields.get_all()
 print(fields[0])
 ```
 
+### Users
+
+
+**libzen.users.create(\*\*user_props) -> int**  
+
+Cria um usuário com os valores passados nos parâmetros nomeados (kwargs) como campos. Ele retorna o id do usuário criado.  
+NOTE: somente o name é obrigatório.
+```python
+from libzen import users
+
+user_id = users.create(name='Jhon Doe', phone='555555555')
+
+user = { 'name': 'foo', 'email': 'fo@baz.com'}
+user_id = users.create(**user)
+```
+
+**libzen.users.create_many(users: list[dict]) -> str**  
+
+Cria todos os usuários passados.  
+Retorna uma string com a url da tarefa (job result)
+```python
+from libzen import users
+print(users.create_many([
+	{ 'name': 'foo', 'phone': '+000000'},
+	{ 'name': 'baz', 'email': 'foo@baz.com'}
+]))
+```
+
+
 ### Search
 
 **libzen.search.generators.iterate_by_query(query: str)**  
