@@ -172,7 +172,7 @@ print(tickets.import_many([
 Retorna todos os comentário de um ticket.  
 ```python
 from libzen import comments
-comments = comments.get()
+comments = comments.get(555443)
 print(comments[0])
 ```
 
