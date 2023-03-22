@@ -1,6 +1,6 @@
 from io import BufferedReader, TextIOWrapper
-from libzen._generic import _send
 from pathlib import Path
+from ._generic import _send
 
 class InvalidReader(BaseException): pass
 

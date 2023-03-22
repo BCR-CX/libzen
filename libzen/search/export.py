@@ -1,6 +1,4 @@
-import json
-from libzen._generic import _export_iterate_search
-import requests
+from .._generic import _export_iterate_search
 
 
 def iterate_by_query(query: str):

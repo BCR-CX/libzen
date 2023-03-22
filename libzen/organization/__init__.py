@@ -1,7 +1,6 @@
-from libzen._generic import _iterate_search
-from libzen._generic import _iterate_search, _send, ZendeskException
-from typing import Union
 import json
+from typing import Union
+from .._generic import _iterate_search, _send
 
 
 _ORGS_VALID_FIELDS = set(['created_at', 'details', 'external_id', 'group_id', 'id', 'name', 'notes', 'organization_fields', 'shared_comments', 'shared_tickets', 'tags', 'updated_at', 'url'])

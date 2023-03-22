@@ -25,3 +25,15 @@ def _get_or_raise(var):
 _ZENDESK_URL = _get_or_raise('ZENDESK_URL')
 _ZENDESK_NAME = _get_or_raise('ZENDESK_NAME')
 _ZENDESK_SECRET = _get_or_raise('ZENDESK_SECRET')
+
+# Imports necessários para que estes subpacotes possam ser acessados como 'libzen.modulo'
+# Devem ser importados apos as váriaveis acima serem definidas
+from . import comments as comments
+from . import macros as macros
+from . import organization as organization
+from . import search as search
+from . import ticket_fields as ticket_fields
+from . import tickets as tickets
+from . import users as users
+from . import attachments as attachments
+from . import job_statuses as job_statuses

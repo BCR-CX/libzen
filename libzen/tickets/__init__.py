@@ -1,7 +1,7 @@
 from typing import Union, Optional
 import json
-from libzen._generic import _iterate_search, _delete, _send
-from libzen import ZendeskException
+from .._generic import _iterate_search, _delete, _send
+from .. import ZendeskException
 
 _TICKET_VALID_FIELDS = set(['allow_attachments', 'allow_channelback', 'assignee_email',
                             'assignee_id', 'attribute_value_ids', 'brand_id',

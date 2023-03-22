@@ -1,13 +1,13 @@
 from typing import Union, Optional
 
-from libzen._generic import _iterate_search
-import libzen
+from .._generic import _iterate_search
+from .. import ZendeskException
 
 
 def get(ticket_id: 'Union[str, int]') -> 'Optional[dict]':
     try:
         return next(_iterate_search(f"/api/v2/tickets/{ticket_id}/comments", result_page_name='comments'))
-    except libzen.ZendeskException as ex:
+    except ZendeskException as ex:
         if ex.status_code == 404:
             return None
 

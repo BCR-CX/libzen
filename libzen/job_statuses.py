@@ -1,6 +1,6 @@
 import time
 from urllib.parse import urlparse
-from libzen._generic import _iterate_search
+from ._generic import _iterate_search
 
 def wait_for_job(url, sleep_time=5):
     endpoint = urlparse(url).path
