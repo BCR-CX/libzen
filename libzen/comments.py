@@ -1,7 +1,7 @@
 from typing import Union, Optional
 
-from .._generic import _iterate_search
-from .. import ZendeskException
+from ._generic import _iterate_search
+from .zendesk_exception import ZendeskException
 
 
 def get(ticket_id: 'Union[str, int]') -> 'Optional[dict]':

@@ -1,5 +1,5 @@
 import json
-from .._generic import _send
+from ._generic import _send
 
 
 _USER_VALID_FIELDS = set(['id', 'url', 'name', 'email', 'created_at', 'updated_at', 'time_zone',
