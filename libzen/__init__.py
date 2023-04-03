@@ -4,6 +4,7 @@ __author__ = 'BCR'
 
 # Imports necessários para que estes subpacotes possam ser acessados como 'libzen.modulo'
 
+from ._auth import set_authentication as set_authentication
 from . import job_statuses as job_statuses
 from . import attachments as attachments
 from . import users as users
