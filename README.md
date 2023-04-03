@@ -15,15 +15,33 @@ apresentar problemas no python 3.11 com o setuptools em uma versão menor que 58
 
 ## Uso
 
-É necessário definir as seguintes variáveis de ambiente para o programa:
+Antes de começar a fazer as requisições é necessário definir as credenciais
+e a url da zendesk que será acessada. Isso pode ser feito de duas formas:
+via variáveis de ambiente ou via código.  
 
-* _ZENDESK_URL_: Endereço da zendesk com o subdomínio.  
-* _ZENDESK_NAME_:  E-mail para login.  
-* _ZENDESK_SECRET_: Senha para login.
+Note que o pacote jogará um erro caso as credenciais não sejam definidas
+antes de alguma função que realize requisições seja chamada.  
 
-Para criar variáveis de ambiente temporárias você pode usar os seguintes comandos:  
-No windows: ``set ZENDESK_URL=valor``  
-No *nix: ``export ZENDESK_URL=valor``  
+### Configurando autenticação por variáveis de ambiente 
+Defina as seguintes variáveis de ambiente antes de executar o programa:
+
+- **_ZENDESK_URL_**: Endereço da zendesk com o subdomínio.  
+- **_ZENDESK_NAME_**:  E-mail para login.  
+- **_ZENDESK_SECRET_**: Senha para login.
+
+Para criar variáveis de ambiente locais no terminal atualmente aberto você pode usar os seguintes comandos:  
+No windows: ``set VARIAVEL=valor``  
+No *nix: ``export VARIAVEL=valor``  
+
+### Configurando autenticação por código 
+
+Caso prefira extrair as credenciais de outro lugar, você pode passa-las 
+para a função ``set_authentication`` inves de definir as variáveis de ambiente.
+```python
+import libzen
+libzen.set_authentication('url', 'email', 'secret')
+# Resto do código...
+```
 
 ## Doc
 

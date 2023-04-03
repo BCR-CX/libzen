@@ -5,14 +5,43 @@ class AuthException(BaseException):
     pass
 
 
-def _get_or_raise(var):
-    if value := os.getenv(var):
-        return value
+class _Authentication:
+    authentication: '_Authentication'
 
-    raise AuthException(f"Variável de ambiente '{var}' não definida")
+    def __init__(self, url, name, secret) -> None:
+        self._url = url
+        self._name = name
+        self._secret = secret
+
+    @property
+    def url(self) -> str:
+        if not self._name:
+            raise AuthException("Variável de ambiente ZENDESK_URL não definida")
+
+        return self._url
+
+    def to_tuple(self) -> tuple[str, str]:
+        if not self._name:
+            raise AuthException("Variável de ambiente ZENDESK_NAME não definida")
+
+        if not self._secret:
+            raise AuthException("Variável de ambiente ZENDESK_SECRET não definida")
+
+        return (self._name, self._secret)
+
+    @staticmethod
+    def from_env():
+        return _Authentication(
+            os.getenv('ZENDESK_URL'),
+            os.getenv('ZENDESK_NAME'),
+            os.getenv('ZENDESK_SECRET'),
+        )
+
+    def __str__(self):
+        return 'libzen._Authentication(omitted)'
 
 
-# Not really secure to keep them stored
-_ZENDESK_URL = _get_or_raise('ZENDESK_URL')
-_ZENDESK_NAME = _get_or_raise('ZENDESK_NAME')
-_ZENDESK_SECRET = _get_or_raise('ZENDESK_SECRET')
+def set_authentication(url, name, secret):
+    _Authentication.authentication = _Authentication(url, name, secret)
+
+_Authentication.authentication = _Authentication.from_env()
