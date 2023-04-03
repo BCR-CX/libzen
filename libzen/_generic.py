@@ -1,7 +1,8 @@
 from typing import Any
 import json
 import requests
-from . import _ZENDESK_NAME, _ZENDESK_URL, _ZENDESK_SECRET, ZendeskException, AuthException
+from ._auth import _ZENDESK_NAME, _ZENDESK_URL, _ZENDESK_SECRET, AuthException
+from .zendesk_exception import ZendeskException
 
 _METHOD = { 'post': requests.post, 'put': requests.put}
 
