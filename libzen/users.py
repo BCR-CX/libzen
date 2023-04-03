@@ -22,7 +22,6 @@ def create(**user_props) -> int:
             f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
 
     data = json.dumps({'user': user_props})
-    print(data)
 
     return next(_send('/api/v2/users.json', data, result_page_name='user', method='post'))['id']
 
