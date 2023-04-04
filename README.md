@@ -205,6 +205,18 @@ fields = ticket_fields.get_all()
 print(fields[0])
 ```
 
+### Ticket Metrics
+
+**libzen.ticket_fields.get_all(ticket_id: str | int) -> Optional[dict]**  
+
+Retorna as metricas de um ticket de um dado id ou None caso ele o ticket não exista.  
+
+```python
+from libzen import metrics
+ticket_metrics = metrics.get(66)
+print(ticket_metrics)
+```
+
 ### Users
 
 
