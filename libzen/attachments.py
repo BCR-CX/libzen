@@ -2,9 +2,12 @@ from io import BufferedReader, TextIOWrapper
 from pathlib import Path
 from ._generic import _send
 
-class InvalidReader(BaseException): pass
 
-def create(fp:TextIOWrapper|BufferedReader, filename:str|None=None) -> 'tuple[str, int]':
+class InvalidReader(BaseException):
+    pass
+
+
+def create(fp: TextIOWrapper | BufferedReader, filename: str | None = None) -> 'tuple[str, int]':
     if fp.mode != 'rb':
         raise InvalidReader('Fp must be open in byte mode')
 

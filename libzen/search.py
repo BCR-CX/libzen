@@ -4,10 +4,11 @@ from ._generic import _iterate_search, _export_iterate_search
 # (libzen/search/{__init__,export,generators}.py) will cause
 # "cannot import name 'search' from partially initialized module" erros
 
+
 class generators:
     @staticmethod
     def iterate_by_query(query: str):
-        """Referência de pesquisa: 
+        """Referência de pesquisa:
         https://developer.zendesk.com/api-reference/ticketing/ticket-management/search
         """
         for tickets in _iterate_search('/api/v2/search?' + query):

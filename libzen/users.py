@@ -2,14 +2,47 @@ import json
 from ._generic import _send
 
 
-_USER_VALID_FIELDS = set(['id', 'url', 'name', 'email', 'created_at', 'updated_at', 'time_zone',
-                          'iana_time_zone', 'phone', 'shared_phone_number', 'photo', 'locale_id',
-                          'locale', 'organization_id', 'role', 'verified', 'external_id', 'tags',
-                          'alias', 'active', 'shared', 'shared_agent', 'last_login_at',
-                          'two_factor_auth_enabled', 'signature', 'details', 'notes', 'role_type',
-                          'custom_role_id', 'moderator', 'ticket_restriction',
-                          'only_private_comments', 'restricted_agent', 'suspended',
-                          'default_group_id', 'report_csv', 'user_fields'])
+_USER_VALID_FIELDS = set(
+    [
+        'id',
+        'url',
+        'name',
+        'email',
+        'created_at',
+        'updated_at',
+        'time_zone',
+        'iana_time_zone',
+        'phone',
+        'shared_phone_number',
+        'photo',
+        'locale_id',
+        'locale',
+        'organization_id',
+        'role',
+        'verified',
+        'external_id',
+        'tags',
+        'alias',
+        'active',
+        'shared',
+        'shared_agent',
+        'last_login_at',
+        'two_factor_auth_enabled',
+        'signature',
+        'details',
+        'notes',
+        'role_type',
+        'custom_role_id',
+        'moderator',
+        'ticket_restriction',
+        'only_private_comments',
+        'restricted_agent',
+        'suspended',
+        'default_group_id',
+        'report_csv',
+        'user_fields',
+    ]
+)
 
 
 def create(**user_props) -> int:
@@ -18,8 +51,7 @@ def create(**user_props) -> int:
 
     invalid_keys = set(user_props.keys()) - _USER_VALID_FIELDS
     if invalid_keys:
-        raise ValueError(
-            f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
+        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
 
     data = json.dumps({'user': user_props})
 

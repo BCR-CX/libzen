@@ -44,4 +44,5 @@ class _Authentication:
 def set_authentication(url, name, secret):
     _Authentication.authentication = _Authentication(url, name, secret)
 
+
 _Authentication.authentication = _Authentication.from_env()
