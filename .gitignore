@@ -1,2 +1,6 @@
 __pycache__
 libzen.egg-info
+bin/
+build/
+
+pyvenv.cfg
