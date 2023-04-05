@@ -32,8 +32,7 @@ def _send(endpoint: str, content_object: Any, result_page_name: str, headers=Non
 def _delete(endpoint: str, result_page_name: str = 'results'):
     full_url = _Authentication.authentication.url + endpoint
 
-    response = requests.delete(full_url, auth=_Authentication.authentication.to_tuple())
-
+    response = requests.delete(full_url, auth=_Authentication.authentication.to_tuple(), timeout=2)
     if response.status_code == 401:
         raise AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
     elif response.status_code > 299:
@@ -55,7 +54,7 @@ def _iterate_search(endpoint: str, result_page_name: str = 'results'):
     nextpage = full_url
 
     while True:
-        response = requests.get(nextpage, auth=_Authentication.authentication.to_tuple())
+        response = requests.get(nextpage, auth=_Authentication.authentication.to_tuple(), timeout=2)
 
         if response.status_code == 401:
             raise AuthException(
@@ -85,7 +84,7 @@ def _export_iterate_search(endpoint: str, result_page_name: str = 'results'):
     nextpage = full_url
 
     while True:
-        response = requests.get(nextpage, auth=_Authentication.authentication.to_tuple())
+        response = requests.get(nextpage, auth=_Authentication.authentication.to_tuple(), timeout=2)
 
         if response.status_code == 401:
             raise AuthException(
