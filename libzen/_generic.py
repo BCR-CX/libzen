@@ -41,8 +41,10 @@ def _delete(endpoint: str, result_page_name: str = 'results'):
         msg = err.get('description', '')
         raise ZendeskException(msg, response.status_code, err)
 
-    if 'application/json' in response.headers['content-type']:
+    if 'application/json' in response.headers.get('content-type', {}):
         yield response.json().get(result_page_name)
+    else:
+        yield {}
 
 
 def _iterate_search(endpoint: str, result_page_name: str = 'results'):

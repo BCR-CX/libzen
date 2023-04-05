@@ -151,7 +151,7 @@ def append_tags(ticket_id: 'Union[str, int]', tags: 'list[str]') -> int:
 
 def delete(ticket_id: 'Union[str, int]'):
     endpoint = '/api/v2/tickets/' + str(ticket_id)
-    _delete(endpoint, result_page_name='')
+    return next(_delete(endpoint, result_page_name=''))
 
 
 def delete_many(ids: 'list[Union[str, int]]') -> str:
