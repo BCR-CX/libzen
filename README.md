@@ -245,6 +245,22 @@ print(users.create_many([
 ]))
 ```
 
+**libzen.users.delete(ids: str | int)**  
+
+Apaga o usuário com o id.  
+```python
+from libzen import users
+users.delete(33435)
+```
+
+**libzen.users.delete_many(ids: list[str | int]) -> str**  
+
+Apaga todos os usuários dos quais os ids foram passados como lista.  
+Retorna uma string com a url da tarefa (job result)
+```python
+from libzen import users
+print(users.get_by_id(33435))
+```
 
 ### Search
 

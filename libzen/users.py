@@ -1,5 +1,5 @@
 import json
-from ._generic import _send
+from ._generic import _send, _delete
 
 
 _USER_VALID_FIELDS = set(
@@ -51,7 +51,8 @@ def create(**user_props) -> int:
 
     invalid_keys = set(user_props.keys()) - _USER_VALID_FIELDS
     if invalid_keys:
-        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
+        raise ValueError(
+            f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
 
     data = json.dumps({'user': user_props})
 
@@ -65,3 +66,20 @@ def create_many(users: 'list[dict]') -> str:
     data = json.dumps({'users': users})
     endpoint = '/api/v2/users/create_many'
     return next(_send(endpoint, data, result_page_name='job_status', method='post'))['url']
+
+
+def delete(ticket_id: 'str | int'):
+    endpoint = '/api/v2/users/' + str(ticket_id)
+    return next(_delete(endpoint, result_page_name=''))
+
+
+def delete_many(ids: 'list[str | int]') -> str:
+    if len(ids) > 100:
+        raise ValueError(f"Passados {len(ids)}, esperado 100.")
+
+    if len(ids) == 0:
+        raise ValueError("Nenhum id fornecido.")
+
+    ids_str = ','.join([str(id_) for id_ in ids])
+    endpoint = '/api/v2/users/destroy_many?ids=' + ids_str
+    return next(_delete(endpoint, result_page_name='job_status'))['url']
