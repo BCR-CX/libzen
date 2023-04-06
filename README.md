@@ -4,7 +4,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=coverage&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=sqale_index&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=alert_status&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=alert_status&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=reliability_rating&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=duplicated_lines_density&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=vulnerabilities&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=bugs&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
