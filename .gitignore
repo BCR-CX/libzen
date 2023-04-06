@@ -3,4 +3,5 @@ libzen.egg-info
 bin/
 build/
 
-pyvenv.cfg
+pyvenv.cfg.idea
+.idea/
