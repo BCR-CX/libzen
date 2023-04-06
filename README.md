@@ -10,6 +10,7 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=bugs&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=BCR-CX_libzen&metric=security_rating&token=311c784e0970b881bceae7cf1c4fc4859ebe7c1c)](https://sonarcloud.io/summary/new_code?id=BCR-CX_libzen)
 
+
 ## Instalação
 
 Já que este pacote não está no PyPI é necessário clona-lo do repositório com o seguinte comando:
