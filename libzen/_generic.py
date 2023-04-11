@@ -24,7 +24,7 @@ def _send(endpoint: str, content_object: Any, result_page_name: str, headers=Non
     elif response.status_code > 299:
         err = json.loads(response.text.replace('\\', '\\\\'))
         msg = err.get('description', '')
-        raise ZendeskException(msg, response.status_code, err)
+        raise ZendeskException(msg, response.status_code, err, dict(response.headers))
 
     yield response.json()[result_page_name]
 
@@ -38,7 +38,7 @@ def _delete(endpoint: str, result_page_name: str = 'results'):
     elif response.status_code > 299:
         err = json.loads(response.text.replace('\\', '\\\\'))
         msg = err.get('description', '')
-        raise ZendeskException(msg, response.status_code, err)
+        raise ZendeskException(msg, response.status_code, err, dict(response.headers))
 
     if 'application/json' in response.headers.get('content-type', {}):
         yield response.json().get(result_page_name)
@@ -68,7 +68,7 @@ def _iterate_search(endpoint: str, result_page_name: str = 'results'):
             if response.headers.get('Content-Type') == 'application/json':
                 err = json.loads(response.text.replace('\\', '\\\\'))
                 msg = err.get('description', '')
-            raise ZendeskException(msg, response.status_code, err)
+            raise ZendeskException(msg, response.status_code, err, dict(response.headers))
 
         res_json = response.json()
 
@@ -95,7 +95,7 @@ def _export_iterate_search(endpoint: str, result_page_name: str = 'results'):
         elif response.status_code > 299:
             err = json.loads(response.text.replace('\\', '\\\\'))
             msg = err.get('description', '')
-            raise ZendeskException(msg, response.status_code, err)
+            raise ZendeskException(msg, response.status_code, err, dict(response.headers))
 
         res_json = response.json()
 
