@@ -29,6 +29,10 @@ Antes de começar a fazer as requisições é necessário definir as credenciais
 e a url da zendesk que será acessada. Isso pode ser feito de duas formas:
 via variáveis de ambiente ou via código.  
 
+Caso seja necessário realizar a autentificação via token, adicione 
+'/token' no final do email do usuário e coloque o token no lugar da
+senha.  
+
 Note que o pacote jogará um erro caso as credenciais não sejam definidas
 antes de alguma função que realize requisições seja chamada.  
 
@@ -36,8 +40,8 @@ antes de alguma função que realize requisições seja chamada.
 Defina as seguintes variáveis de ambiente antes de executar o programa:
 
 - **_ZENDESK_URL_**: Endereço da zendesk com o subdomínio.  
-- **_ZENDESK_NAME_**:  E-mail para login.  
-- **_ZENDESK_SECRET_**: Senha para login.
+- **_ZENDESK_NAME_**:  E-mail para login. Acrecente '/token' no final caso deseje logar por token.  
+- **_ZENDESK_SECRET_**: Senha ou token para login.
 
 Para criar variáveis de ambiente locais no terminal atualmente aberto você pode usar os seguintes comandos:  
 No windows: ``set VARIAVEL=valor``  
@@ -49,7 +53,15 @@ Caso prefira extrair as credenciais de outro lugar, você pode passa-las
 para a função ``set_authentication`` inves de definir as variáveis de ambiente.
 ```python
 import libzen
-libzen.set_authentication('url', 'email', 'secret')
+
+email = ''
+
+# Com autentificação básica
+libzen.set_authentication('url', email, 'secret')
+
+# Com token
+libzen.set_authentication('url', email + '/token', 'token')
+
 # Resto do código...
 ```
 
