@@ -12,29 +12,33 @@ def _prepare_query(query: str, sort_by: str = 'created_at', order_by: str = 'asc
 
 class generators:
     @staticmethod
-    def iterate_by_query(query: str, sort_by: str='created_at', order_by: str='asc'):
+    def iterate_by_query(
+        query: str, sort_by: str = 'created_at', order_by: str = 'asc', timeout: int = 60
+    ):
         """Referência de pesquisa:
         https://developer.zendesk.com/api-reference/ticketing/ticket-management/search
         """
         params = _prepare_query(query, sort_by, order_by)
-        for tickets in _iterate_search('/api/v2/search.json', params=params):
+        for tickets in _iterate_search('/api/v2/search.json', params=params, timeout=timeout):
             yield tickets
 
 
 class export:
     @staticmethod
-    def iterate_by_query(query: str):
+    def iterate_by_query(query: str, timeout: int = 60):
         if 'filter[type]=' not in query:
             raise ValueError('"filter[type]" é obrigatório na query')
 
-        for tickets in _export_iterate_search('api/v2/search/export?' + query):
+        for tickets in _export_iterate_search('api/v2/search/export?' + query, timeout=timeout):
             yield tickets
 
 
-def get_by_query(query: str, sort_by: str='created_at', order_by: str='asc') -> list[dict]:
+def get_by_query(
+    query: str, sort_by: str = 'created_at', order_by: str = 'asc', timeout: int = 60
+) -> list[dict]:
     all_results = []
 
-    for next_results in generators.iterate_by_query(query, sort_by, order_by):
+    for next_results in generators.iterate_by_query(query, sort_by, order_by, timeout=timeout):
         all_results.extend(next_results)
 
     return all_results

@@ -49,7 +49,8 @@ def _delete(endpoint: str, result_page_name: str = 'results'):
 def _iterate_search(
         endpoint: str,
         result_page_name: str = 'results',
-        params: dict[str, str] | None=None
+        params: dict[str, str] | None=None,
+        timeout: int=2
     ):
     """
     Gerador que obtém os resultados de 'endpoint' paginado de 100 em 100 e devolve o 
@@ -66,7 +67,7 @@ def _iterate_search(
             nextpage,
             auth=_Authentication.authentication.to_tuple(),
             params=params,
-            timeout=2
+            timeout=timeout
         )
 
         if response.status_code == 401:
@@ -92,12 +93,15 @@ def _iterate_search(
             break
 
 
-def _export_iterate_search(endpoint: str, result_page_name: str = 'results'):
+def _export_iterate_search(endpoint: str, timeout: int, result_page_name: str = 'results'):
     full_url = _Authentication.authentication.url + endpoint
     nextpage = full_url
 
     while True:
-        response = requests.get(nextpage, auth=_Authentication.authentication.to_tuple(), timeout=2)
+        response = requests.get(
+            nextpage,
+            auth=_Authentication.authentication.to_tuple(),
+            timeout=timeout)
 
         if response.status_code == 401:
             raise AuthException(
