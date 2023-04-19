@@ -286,21 +286,21 @@ print(users.get_by_id(33435))
 
 ### Search
 
-**libzen.search.generators.iterate_by_query(query: str)**  
+**libzen.search.generators.iterate_by_query(query: str, sort_by: str='created_at', order_by: str='asc')**  
 
 Itera sobre todos resultados de uma pesquisa paginada.
 ```python
 from libzen.search import generators
-for tickets in generators.iterate_by_query('query=type:ticket status:closed'):
+for tickets in generators.iterate_by_query('type:ticket status:closed'):
 	print(tickets[0])
 ```
 
-**libzen.search.get_by_query(query: str) -> list[dict]**  
+**libzen.search.get_by_query(query: str, sort_by: str='created_at', order_by: str='asc') -> list[dict]**  
 
 Retorna todos resultados de uma pesquisa paginada.
 ```python
 from libzen import search
-tickets = search.get_by_query('query=type:ticket status:closed'):
+tickets = search.get_by_query('type:ticket status:closed', sort_by='created_at', sort_order='asc'):
 print(tickets[0])
 ```
 
@@ -309,6 +309,9 @@ print(tickets[0])
 
 Itera sobre todos resultados de uma pesquisa no endpoint export. Para saber as
 diferenças entre esse endpoint e o normal, leia a [documentação](https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#export-search-results).
+
+Note: diferente dos outros search.get_by_query e search.generators.iterate_by_query, é
+necessário prefixar com "query=".  
 ```python
 from libzen.search import export
 for tickets in export.iterate_by_query('query=tags:teste&filter[type]=ticket'):

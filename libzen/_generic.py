@@ -46,15 +46,28 @@ def _delete(endpoint: str, result_page_name: str = 'results'):
         yield {}
 
 
-def _iterate_search(endpoint: str, result_page_name: str = 'results'):
-    """Gerador que obtém os resultados de 'endpoint' paginado de 100 em 100 e devolve o conteúdo de 'results' de cada iteração.
-    NOTA: o gerador só retornará até 1000 resultados já que zendesk bloqueia com erro 'Unprocessed Entity' queries que tentam pegar mais que essa quantidade.
+def _iterate_search(
+        endpoint: str,
+        result_page_name: str = 'results',
+        params: dict[str, str] | None=None
+    ):
+    """
+    Gerador que obtém os resultados de 'endpoint' paginado de 100 em 100 e devolve o 
+    conteúdo de 'results' de cada iteração.
+
+    NOTA: o gerador só retornará até 1000 resultados já que zendesk bloqueia com erro
+    'Unprocessed Entity' queries que tentam pegar mais que essa quantidade.
     """
     full_url = _Authentication.authentication.url + endpoint
     nextpage = full_url
 
     while True:
-        response = requests.get(nextpage, auth=_Authentication.authentication.to_tuple(), timeout=2)
+        response = requests.get(
+            nextpage,
+            auth=_Authentication.authentication.to_tuple(),
+            params=params,
+            timeout=2
+        )
 
         if response.status_code == 401:
             raise AuthException(
