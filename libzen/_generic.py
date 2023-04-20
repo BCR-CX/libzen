@@ -2,7 +2,7 @@ from typing import Any
 import json
 import requests
 from ._auth import _Authentication, AuthException
-from .zendesk_exception import ZendeskException
+from .zendesk_exception import ZendeskException, ZendeskTimeout
 
 
 _METHOD = {'post': requests.post, 'put': requests.put}
@@ -15,9 +15,15 @@ def _send(endpoint: str, content_object: Any, result_page_name: str, headers=Non
     full_url = _Authentication.authentication.url + endpoint
 
     headers = headers or {'content-type': 'application/json'}
-    response = _METHOD[method](
-        full_url, data=content_object, auth=_Authentication.authentication.to_tuple(), headers=headers
-    )
+    try:
+        response = _METHOD[method](
+            full_url,
+            data=content_object,
+            auth=_Authentication.authentication.to_tuple(),
+            headers=headers,
+        )
+    except requests.exceptions.ReadTimeout as ex:
+        raise ZendeskTimeout('A zendesk demorou muito para responder') from ex
 
     if response.status_code == 401:
         raise AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
@@ -32,7 +38,11 @@ def _send(endpoint: str, content_object: Any, result_page_name: str, headers=Non
 def _delete(endpoint: str, result_page_name: str = 'results'):
     full_url = _Authentication.authentication.url + endpoint
 
-    response = requests.delete(full_url, auth=_Authentication.authentication.to_tuple(), timeout=2)
+    try:
+        response = requests.delete(full_url, auth=_Authentication.authentication.to_tuple(), timeout=10)
+    except requests.exceptions.ReadTimeout as ex:
+        raise ZendeskTimeout('A zendesk demorou muito para responder') from ex
+
     if response.status_code == 401:
         raise AuthException('Credenciais inválidas ou faltantes. Você setou as váriaveis de ambiente?')
     elif response.status_code > 299:
@@ -47,13 +57,13 @@ def _delete(endpoint: str, result_page_name: str = 'results'):
 
 
 def _iterate_search(
-        endpoint: str,
-        result_page_name: str = 'results',
-        params: dict[str, str] | None=None,
-        timeout: int=2
-    ):
+    endpoint: str,
+    result_page_name: str = 'results',
+    params: dict[str, str] | None = None,
+    timeout: int = 10,
+):
     """
-    Gerador que obtém os resultados de 'endpoint' paginado de 100 em 100 e devolve o 
+    Gerador que obtém os resultados de 'endpoint' paginado de 100 em 100 e devolve o
     conteúdo de 'results' de cada iteração.
 
     NOTA: o gerador só retornará até 1000 resultados já que zendesk bloqueia com erro
@@ -63,12 +73,12 @@ def _iterate_search(
     nextpage = full_url
 
     while True:
-        response = requests.get(
-            nextpage,
-            auth=_Authentication.authentication.to_tuple(),
-            params=params,
-            timeout=timeout
-        )
+        try:
+            response = requests.get(
+                nextpage, auth=_Authentication.authentication.to_tuple(), params=params, timeout=timeout
+            )
+        except requests.exceptions.ReadTimeout as ex:
+            raise ZendeskTimeout('A zendesk demorou muito para responder') from ex
 
         if response.status_code == 401:
             raise AuthException(
@@ -98,10 +108,12 @@ def _export_iterate_search(endpoint: str, timeout: int, result_page_name: str = 
     nextpage = full_url
 
     while True:
-        response = requests.get(
-            nextpage,
-            auth=_Authentication.authentication.to_tuple(),
-            timeout=timeout)
+        try:
+            response = requests.get(
+                nextpage, auth=_Authentication.authentication.to_tuple(), timeout=timeout
+            )
+        except requests.exceptions.ReadTimeout as ex:
+            raise ZendeskTimeout('A zendesk demorou muito para responder') from ex
 
         if response.status_code == 401:
             raise AuthException(
