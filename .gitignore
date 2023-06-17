@@ -5,3 +5,4 @@ build/
 
 pyvenv.cfg.idea
 .idea/
+.env
