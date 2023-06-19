@@ -9,6 +9,7 @@ from . import attachments as attachments
 from . import users as users
 from . import tickets as tickets
 from . import ticket_fields as ticket_fields
+from . import ticket_forms as ticket_forms
 from . import organization as organization
 from . import metrics as metrics
 from . import macros as macros
