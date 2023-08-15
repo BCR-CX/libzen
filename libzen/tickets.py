@@ -79,8 +79,8 @@ def import_many(tickets: 'list[dict]') -> str:
 
 
 def create(**ticket_props) -> int:
-    if not ticket_props.get('description'):
-        raise ValueError('422: campo description é obrigatorio')
+    if not ticket_props.get('description') and not ticket_props.get('comment'):
+        raise ValueError('A criação de ticket necessita do campo description ou comment preenchido')
 
     invalid_keys = set(ticket_props.keys()) - _TICKET_VALID_FIELDS
     if invalid_keys:
