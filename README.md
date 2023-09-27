@@ -267,6 +267,14 @@ print(users.create_many([
 ]))
 ```
 
+**libzen.users.get_by_id(requester_id: str | int) -> Optional[dict]**  
+
+Retorna o ticket de um dado id ou None caso ele não exista.
+```python
+from libzen import users
+print(users.get_by_id(12345678))
+```
+
 **libzen.users.delete(ids: str | int)**  
 
 Apaga o usuário com o id.  
