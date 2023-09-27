@@ -1,5 +1,6 @@
 import json
-from ._generic import _send, _delete
+from ._generic import _send, _delete, _iterate_search
+from .zendesk_exception import ZendeskException
 
 
 _USER_VALID_FIELDS = set(
@@ -51,8 +52,7 @@ def create(**user_props) -> int:
 
     invalid_keys = set(user_props.keys()) - _USER_VALID_FIELDS
     if invalid_keys:
-        raise ValueError(
-            f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
+        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
 
     data = json.dumps({'user': user_props})
 
@@ -71,6 +71,16 @@ def create_many(users: 'list[dict]') -> str:
 def delete(ticket_id: 'str | int'):
     endpoint = '/api/v2/users/' + str(ticket_id)
     return next(_delete(endpoint, result_page_name=''))
+
+
+def get_by_id(user_id: 'Union[str, int]') -> 'Optional[dict]':
+    try:
+        return next(_iterate_search(f"/api/v2/users/{user_id}", result_page_name='user'))
+    except ZendeskException as ex:
+        if ex.status_code == 404:
+            return None
+
+        raise ex
 
 
 def delete_many(ids: 'list[str | int]') -> str:
