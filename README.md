@@ -274,10 +274,10 @@ Atualiza o usuário de id "user_id". Retorna o usuário criado.
 ```python
 from libzen import users
 
-user_id = users.update(666, name='Jhon Doe', phone='555555555')
+user = users.update(666, name='Jhon Doe', phone='555555555')
 
 user = { 'name': 'foo', 'email': 'fo@baz.com'}
-user_id = users.update(666, , **user)
+user = users.update(666, , **user)
 ```
 
 **libzen.users.get_by_id(requester_id: str | int) -> Optional[dict]**  
