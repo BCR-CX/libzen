@@ -52,11 +52,21 @@ def create(**user_props) -> int:
 
     invalid_keys = set(user_props.keys()) - _USER_VALID_FIELDS
     if invalid_keys:
-        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de ticket.")
+        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de usuário.")
 
     data = json.dumps({'user': user_props})
 
     return next(_send('/api/v2/users.json', data, result_page_name='user', method='post'))['id']
+
+
+def update(user_id: str | int, **user_props) -> int:
+    invalid_keys = set(user_props.keys()) - _USER_VALID_FIELDS
+    if invalid_keys:
+        raise ValueError(f"Chave {invalid_keys.pop()} não é um campo válido para um objeto de usuário.")
+
+    data = json.dumps({'user': user_props})
+
+    return next(_send(f"/api/v2/users/{user_id}", data, result_page_name="user", method="put"))
 
 
 def create_many(users: 'list[dict]') -> str:

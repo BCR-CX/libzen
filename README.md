@@ -267,6 +267,19 @@ print(users.create_many([
 ]))
 ```
 
+**libzen.users.update(user_id: str | int, \*\*user_props) -> int**  
+
+Atualiza o usuário de id "user_id". Retorna o usuário criado.  
+
+```python
+from libzen import users
+
+user_id = users.update(666, name='Jhon Doe', phone='555555555')
+
+user = { 'name': 'foo', 'email': 'fo@baz.com'}
+user_id = users.update(666, , **user)
+```
+
 **libzen.users.get_by_id(requester_id: str | int) -> Optional[dict]**  
 
 Retorna o usuário de um dado id ou None caso ele não exista.
