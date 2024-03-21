@@ -1,4 +1,4 @@
-from typing import Union, Optional
+from typing import Sequence, Union, Optional
 import json
 from ._generic import _iterate_search, _delete, _send
 from .zendesk_exception import ZendeskException
@@ -154,12 +154,12 @@ def delete(ticket_id: 'Union[str, int]'):
     return next(_delete(endpoint, result_page_name=''))
 
 
-def delete_many(ids: 'list[Union[str, int]]') -> str:
+def delete_many(ids: 'Sequence[Union[str, int]]') -> str:
     if len(ids) > 100:
         raise ValueError(f"Passados {len(ids)}, esperado 100.")
 
     if len(ids) == 0:
-        raise ValueError(f"Nenhum id fornecido.")
+        raise ValueError("Nenhum id fornecido.")
 
     ids_str = ','.join([str(id_) for id_ in ids])
     endpoint = '/api/v2/tickets/destroy_many?ids=' + ids_str
