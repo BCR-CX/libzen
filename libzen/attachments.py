@@ -3,7 +3,7 @@ from pathlib import Path
 from ._generic import _send
 
 
-class InvalidReader(BaseException):
+class InvalidReader(Exception):
     pass
 
 
@@ -16,5 +16,5 @@ def create(fp: TextIOWrapper | BufferedReader, filename: str | None = None) -> '
 
     headers = {'Content-Type': 'application/binary'}
     filename = filename or Path(fp.name).name
-    res = next(_send('api/v2/uploads?filename=' + filename, fp, 'upload', headers=headers))
+    res = next(_send('/api/v2/uploads?filename=' + filename, fp, 'upload', headers=headers))
     return res['token'], int(res['attachment']['id'])
