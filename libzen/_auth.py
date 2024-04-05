@@ -1,7 +1,7 @@
 import os
 
 
-class AuthException(BaseException):
+class AuthException(Exception):
     pass
 
 
