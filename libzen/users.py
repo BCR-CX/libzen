@@ -93,6 +93,10 @@ def get_by_id(user_id: 'Union[str, int]') -> 'Optional[dict]':
         raise ex
 
 
+def me() -> 'dict':
+    return next(_iterate_search("/api/v2/users/me", result_page_name='user'))
+
+
 def delete_many(ids: 'list[str | int]') -> str:
     if len(ids) > 100:
         raise ValueError(f"Passados {len(ids)}, esperado 100.")

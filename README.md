@@ -241,6 +241,15 @@ print(ticket_metrics)
 
 ### Users
 
+**libzen.users.me() -> dict**  
+
+Devolve informações do usuário logado.
+
+```python
+from libzen import users
+
+print(users.me())
+```
 
 **libzen.users.create(\*\*user_props) -> int**  
 
