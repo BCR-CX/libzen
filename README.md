@@ -350,7 +350,7 @@ for tickets in export.iterate_by_query('query=tags:teste&filter[type]=ticket'):
 
 ## Attachments
 
-**libzen.attachments.create(fp: TextIOWrapper | BufferedReader, filename: str| None=None) -> tuple[str, int]**  
+**libzen.attachments.create(fp: TextIOWrapper | BufferedReader | BytesIO, filename: str| None=None) -> tuple[str, int]**  
 
 Cria um anexo e retorna uma tupla com o ``token`` e o id. O ``token`` é usado para anexa-lo em comentários de ticket.  
 ``fp`` é o arquivo a ser anexado, ele deve ser aberto em modo bytes. ``filename`` é o nome do arquivo após ser postado na zendesk, se não passado, ele será nomeado com o nome de ``fp``.
